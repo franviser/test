@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería - {{ momento }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Galería: {{ momento }}</h1>
+        {% if fotos %}
+            <div class="row">
+                {% for foto in fotos %}
+                    <div class="col-md-3">
+                        <div class="card mb-4">
+                            <!-- Adaptar la ruta de las fotos -->
+                            <img src="{{ url_for('static', filename='fotografo/' ~ momento ~ '/' ~ foto) }}" class="card-img-top" alt="Foto">
+
+                            <div class="card-body">
+                                <p class="card-text">{{ foto }}</p>
+                                
+                                <!-- Campo de texto para el comentario -->
+                                <textarea class="comment-text form-control mb-2" placeholder="Escribe un comentario..."></textarea>
+
+                                <!-- Botones de acción -->
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ url_for('static', filename='fotografo/' ~ momento ~ '/' ~ foto) }}" download>
+                                        <button class="btn btn-secondary">Descargar Foto</button>
+                                    </a>
+                                    <button class="btn btn-primary send-to-muro" 
+                                    data-foto="{{ foto }}" 
+                                    data-momento="{{ momento }}"
+                                    data-usuario="{{ nombre_usuario }}">
+                                Publicar en el Muro
+                            </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No hay fotos disponibles en este momento.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        document.querySelectorAll('.send-to-muro').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+        
+                const foto = this.dataset.foto;
+                const momento = this.dataset.momento; // Nuevo: obtener momento
+                const textarea = this.closest('.card-body').querySelector('.comment-text');
+                const comentario = textarea.value;
+                const usuario = this.dataset.usuario;  // Obtener usuario
+        
+                if (!foto || !momento || !comentario.trim() || !usuario) {
+                    alert('Por favor, completa todos los campos antes de publicar.');
+                    return;
+                }
+        
+                // Enviar los datos al servidor
+                fetch('/fotografo/galeria/deliver_to_muro', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ foto, momento, comentario, usuario })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Foto publicada en el muro con tu comentario.');
+                        textarea.value = ''; // Borra el texto del comentario
+                    } else {
+                        // Mostrar el mensaje específico recibido del servidor
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al enviar el comentario.');
+                });
+            });
+        });
+        
+        
+    </script>
+</body>
+</html>

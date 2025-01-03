@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francisco & Yuliana - Wedding</title>
+    <style>
+
+        /* Variables para controlar los porcentajes y posición */
+        :root {
+          --section-1-width: 20%; /* Ancho del primer tercio */
+          --section-2-width: 30%; /* Ancho del segundo tercio */
+          --section-3-width: 50%; /* Ancho del tercer tercio */
+      
+          /* Tamaño y posición de las imágenes */
+          --image-1-height: 50%; /* Altura de la primera imagen */
+          --image-1-margin: auto; /* Centrado vertical */
+          --image-1-offset-right: 0; /* Desplazamiento horizontal */
+      
+          --image-2-height: 70%; /* Altura de la segunda imagen */
+          --image-2-margin: auto; /* Centrado vertical */
+          --image-2-offset-right: -10%; /* Desplazamiento hacia fuera */
+        }
+      
+        .three-sections {
+          display: flex;
+          height: 100vh; /* Altura de la pantalla */
+        }
+      
+        .section {
+          flex-grow: 0; /* No permite que las secciones crezcan */
+          flex-basis: var(--section-1-width); /* Base inicial (controlado por variables) */
+          display: flex;
+          justify-content: center; /* Centra horizontalmente el contenido */
+          align-items: center; /* Centra verticalmente el contenido */
+          overflow: hidden; /* Evita que el contenido se salga */
+        }
+      
+        .blank {
+   
+          flex-basis: var(--section-1-width); /* Ancho del primer tercio */
+        }
+      
+        .section:nth-child(2) {
+          flex-basis: var(--section-2-width); /* Ancho del segundo tercio */
+        }
+      
+        .section:nth-child(3) {
+          flex-basis: var(--section-3-width); /* Ancho del tercer tercio */
+        }
+      
+        .image-container {
+          display: flex;
+          justify-content: flex-end; /* Alinea las imágenes a la derecha */
+          width: 100%;
+          height: 100%;
+        }
+      
+        .image {
+          height: var(--image-1-height); /* Controla la altura de la imagen */
+          margin: var(--image-1-margin); /* Centrado vertical */
+        }
+      
+        .image-1 {
+          height: var(--image-1-height); /* Altura específica */
+          margin-right: var(--image-1-offset-right); /* Control del margen derecho */
+        }
+      
+        .image-2 {
+          height: var(--image-2-height); /* Altura específica */
+          margin-right: var(--image-2-offset-right); /* Permite que se desplace fuera del contenedor */
+        }
+
+        body {
+            overflow-x: hidden!important;
+            font-family: 'Cormorant Garamond', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 1.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007BFF;
+        }
+
+        nav a.bold {
+            font-weight: bold;
+        }
+
+        .menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            background-color: #fff;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: #007BFF;
+        }
+
+        .menu a.bold {
+            font-weight: bold;
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .burger div {
+            height: 4px;
+            background-color: #333;
+            border-radius: 2px;
+        }
+
+        .burger.active + .menu {
+            display: flex;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: url('https://franciscoyiuliana.com/wp-content/uploads/2024/02/playa-9.jpg') center/cover no-repeat;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0.5rem 0;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            nav > a {
+                display: none;
+            }
+
+            .menu {
+                display: none;
+                flex-direction: column;
+            }
+
+            .burger.active + .menu {
+                display: flex;
+            }
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-caption {
+            margin-left: 1rem; /* Espacio entre la imagen y el texto */
+            z-index:10; 
+        }
+
+        .image-caption p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            color: #333;
+            margin: 0;
+            z-index:10;
+        }
+
+        .section {
+            display: flex;
+            align-items: center; /* Centra verticalmente la imagen y el texto */
+            flex-direction: column;
+        }
+
+        .image-caption-bottom {
+            text-align: center;
+            margin-top: 10rem; /* Espacio entre la imagen y el texto debajo */
+        }
+
+    </style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger');
+            const menu = document.querySelector('.menu');
+
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('active');
+                menu.classList.toggle('active');
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="menu">
+                <a href="/index">Home</a>
+                <a href="/location">Location</a>
+                <a href="/invitado">RSVP</a>
+                <a href="/playlist">Music</a>
+                <a href="/schedule">Schedule</a>
+                <a href="/gifts">Gifts</a>
+                <a href="/dresscode">Dress Code</a>
+                <a href="/menu">Menu</a>
+                <a href="/diaboda" class="bold">Wedding Day</a>
+            </div>
+            <a href="/index">Home</a>
+            <a href="/location">Location</a>
+            <a href="/invitado">RSVP</a>
+            <a href="/playlist">Music</a>
+            <a href="/schedule">Schedule</a>
+            <a href="/gifts">Gifts</a>
+            <a href="/dresscode">Dress Code</a>
+            <a href="/menu">Menu</a>
+            <a href="/diaboda" class="bold">Wedding Day</a>
+        </nav>
+    </header>
+
+    <div style="z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between;">
+  
+        <div style="width: 40%;  margin: 0% 0% 0% -10%">
+      <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav4.jpg" alt="Fotografo de bodas en Barcelona" style="width: 100%;">
+    </div>
+          <div style="width: 50%;  margin: 0% -10% 0% 0%">
+      <img src=" https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav15.jpg" alt="Fotografo de bodas en Barcelona" style="width: 100%;">
+    </div>
+    
+    </div>
+
+    <div class="image-caption">
+        <p>Francisco & Iuliana</p>
+    </div>
+    <div class="text-box">
+        <p>To continue with our love story, we have decided to celebrate the journey we have walked and to celebrate the one ahead.</p>
+    </div>
+    
+    <style>
+        .text-box {
+            width: 20%; /* Recuadro estrecho, ocupa el 20% de la pantalla */
+            margin: 3rem auto;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1vw; /* Tamaño de fuente ajustado */
+            line-height: 1.8;
+            text-align: left;
+        }
+    </style>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    
+    <div style="width: 45%; margin: 10% auto 10% auto; position: relative;">
+        <video id="customVideo" style="width: 100%;" muted>
+            <source src="static/server/1080p.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de videos.
+        </video>
+        <button id="playPauseBtn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; display: block;">
+            ▶
+        </button>
+    </div>
+    
+    <script>
+        const video = document.getElementById('customVideo');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+    
+        // Configurar el tiempo inicial en el segundo 26
+        video.addEventListener('loadeddata', () => {
+            video.currentTime = 26;
+        });
+    
+        // Alternar play/pause con el botón
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.style.display = 'none';
+            } else {
+                video.pause();
+                playPauseBtn.style.display = 'block';
+            }
+        });
+    
+        // Mostrar el botón si el video está pausado
+        video.addEventListener('pause', () => {
+            playPauseBtn.style.display = 'block';
+        });
+    
+        // Ocultar el botón mientras el video se reproduce
+        video.addEventListener('play', () => {
+            playPauseBtn.style.display = 'none';
+        });
+    </script>
+    
+    
+    
+    <div class="image-caption">
+        <p>Our story</p>
+    </div>
+    <div class="text-box" style="width: 50%;">
+        <p>We met in a coastal town, where the sea and the sun blend into an endless horizon. </p>
+        <p>  We both shared a deep connection with the ocean: I would lose myself in the waves while he captured the beauty of the landscape with his camera. </p>
+        <p>  It was in that serene, natural setting where our paths crossed, and since then, the sea has been our special place. </p>
+        <p>  Over time, we decided to start a new adventure together and move to Barcelona, a vibrant city full of energy, close to the sea we both love. </p>
+        <p>  Here, surrounded by the Mediterranean breeze and sunshine, we took the next step in our journey, knowing that the love we share, like the waves, will never stop growing.</p>
+    </div>
+    
+    <div style="z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between;">
+  
+        <div style="width: 40%;  margin: 10% 0% 0% 5%">
+      <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/10/DSC_6214.jpg" alt="Fotografo de bodas en Barcelona" style="width: 100%;">
+    </div>
+          <div style="width: 50%;  margin: 15% -10% 0% 0%">
+      <img src=" https://franciscoyiuliana.com/wp-content/uploads/2024/10/DSC_5778.jpg" alt="Fotografo de bodas en Barcelona" style="width: 100%;">
+    </div>
+    
+    </div>
+
+
+    <div class="image-caption">
+        <p>More info</p>
+    </div>
+    <div class="text-box" style="width: 50%;">
+        <p>We met in a coastal town, where the sea and the sun blend into an endless horizon. </p>
+        <p>  We both shared a deep connection with the ocean: I would lose myself in the waves while he captured the beauty of the landscape with his camera. </p>
+        <p>  It was in that serene, natural setting where our paths crossed, and since then, the sea has been our special place. </p>
+        <p>  Over time, we decided to start a new adventure together and move to Barcelona, a vibrant city full of energy, close to the sea we both love. </p>
+        <p>  Here, surrounded by the Mediterranean breeze and sunshine, we took the next step in our journey, knowing that the love we share, like the waves, will never stop growing.</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

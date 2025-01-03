@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save the Date</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Cinzel:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Cinzel', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 33.33%; /* Cada bloque ocupa un 33.33% del ancho */
+            height: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        .block-text {
+            text-transform: uppercase;
+            font-size: 3rem;
+            line-height: 1.5;
+            font-family: 'Cinzel', serif;
+        }
+
+        .block-image {
+            width: 80%;
+            height: 70%;
+            overflow: hidden;
+            border-radius: 50% / 20% 20% 0 0;
+            border: 1px solid black;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(100%); /* Empezar fuera de la pantalla */
+            transition: opacity 1s ease-in, transform 1s ease-in;
+        }
+
+        .block-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: transparent;
+            z-index: 2;
+        }
+
+        .number {
+            position: absolute;
+            bottom: 4vw; /* Cambié la posición a la parte inferior */
+            left: 4vw;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 2rem; /* Ajusté el tamaño */
+            z-index: 3;
+            color: black;
+        }
+
+       
+    </style>
+</head>
+<body>
+
+    <style>
+
+        /* Estilos para el botón de login */
+        .login-button {
+            width: 200px; /* Ancho del botón */
+            position: fixed; /* Fijo en la pantalla */
+            top: 5%; /* Centrado verticalmente */
+            left: 62.5%; /* Centrado horizontalmente */
+            transform: translate(-50%, -50%); /* Ajusta el botón para que esté centrado */
+            background-color: black; /* Fondo negro */
+            color: white; /* Texto blanco */
+            padding: 10px 20px; /* Espaciado del botón */
+            border: none; /* Sin borde */
+            cursor: pointer; /* Cambia el cursor al pasar por encima */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+        }
+        
+    
+    @media (max-width:600px) {
+          .login-button {
+            right: 50px; /* Margen desde la derecha */
+           
+        }
+    
+       }
+        /* Estilos para el modal de login */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Fijo en toda la pantalla */
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.5); /* Fondo semi-transparente */
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; /* Asegura que esté por encima del contenido */
+        }
+    
+        .login-box {
+            border: 2px solid black; /* Marco negro */
+            padding: 10px; /* Espaciado dentro del recuadro */
+            background-color: white; /* Fondo blanco */
+            width: 60%; /* Asegura que ocupe todo el ancho disponible */
+            max-width: 400px; /* Limita el tamaño máximo del recuadro */
+            box-sizing: border-box; 
+        }
+    
+        .form-container {
+           color:#555555; 
+           display:flex; 
+           flex-direction:center; 
+           align-items:center; 
+           flex-direction : column ;
+           gap :10px
+       }
+    
+       .password-input {
+           color:#555555; 
+           width :100%; 
+           height :30px; 
+           background-color:white; 
+           color:black; 
+           font-size:.7rem; 
+           text-align:center; 
+           letter-spacing:.1rem; 
+           font-family:'Cormorant', serif; 
+           border:.1vw solid var(--darker-blue); 
+           box-sizing:border-box; 
+           margin-bottom :15px
+       }
+       .password-input:focus {
+        outline: none; /* Elimina el marco negro al enfocar */
+    }
+      
+    
+       button {
+           color:#555555; 
+           padding :6px 14px ; 
+           background-color:white ; 
+           border:.1vw solid var(--darker-blue); 
+           color : var(--darker-blue); 
+           font-size:.7rem ; 
+           font-family:'Cormorant', serif ; 
+           letter-spacing:.1rem ; 
+           cursor:pointer ; 
+           width :100%; 
+           display:block ; 
+           box-sizing:border-box ;
+       }
+    
+       @media (max-width :600px) {
+          .login-box { width :90%; padding :15px;}
+          .password-input { height :25px ; font-size:.7rem;}
+          button { padding :8px 10px ; font-size:.7rem;}
+       }
+    </style>
+     <!-- Login Button -->
+     <button class="login-button" onclick="showLoginModal()">Login</button>
+
+     <!-- Modal for Login -->
+     <div id="loginModal" class="modal">
+         <div class="login-box">
+           <div class="form-container">
+               <form action="{{ url_for('login_user') }}" method="POST">
+                   <input type="password" id="contraseña" name="contraseña" class="password-input" placeholder="Password" required />
+                   <button id="login-btn" type="submit">Login</button>
+               </form>
+           </div>
+       </div>
+     </div>
+     <script>
+       function showLoginModal() {
+           document.getElementById('loginModal').style.display = 'flex'; // Show the modal
+       }
+ 
+       window.onclick = function(event) {
+           if (event.target == document.getElementById('loginModal')) { // Close the modal if clicked outside
+               document.getElementById('loginModal').style.display = 'none';
+           }
+       }
+   </script>
+
+    <!-- Bloques de contenido -->
+    <div class="container">
+        <div class="block">
+            <div class="block-text">
+                <span>SAVE</span><br>
+                <span>THE</span><br>
+                <span>DATE</span>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="block-image" id="block-1">
+                <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Pareja 1">
+                <div class="frame"></div>
+            </div>
+            <div class="number">01.</div>
+        </div>
+
+        <div class="block">
+            <div class="block-image" id="block-2">
+                <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Pareja 2">
+                <div class="frame"></div>
+            </div>
+            <div class="number">02.</div>
+        </div>
+
+        <div class="block">
+            <div class="block-image" id="block-3">
+                <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Pareja 3">
+                <div class="frame"></div>
+            </div>
+            <div class="number">03.</div>
+        </div>
+    </div>
+
+    <script>
+        // Al cargar la página, mostrar el formulario después de 1.5 segundos
+        setTimeout(() => {
+            document.getElementById('form-container').style.opacity = 1; // Hacer visible el formulario
+            document.getElementById('form-container').style.top = "50%"; // Mover el formulario hacia el 50% de la pantalla
+            document.body.style.overflowY = 'auto'; // Habilitar el scroll vertical
+        }, 0); // 1500 ms = 1.5 segundos
+
+        // Función para animar los bloques
+        window.addEventListener('scroll', function() {
+            const blocks = document.querySelectorAll('.block-image');
+            blocks.forEach(block => {
+                if (block.getBoundingClientRect().top < window.innerHeight) {
+                    block.style.opacity = 1;
+                    block.style.transform = 'translateX(0)';
+                }
+            });
+        });
+
+        // Activar la animación de los bloques al cargar
+        window.addEventListener('load', function() {
+            const blocks = document.querySelectorAll('.block-image');
+            blocks.forEach(block => {
+                block.style.opacity = 1;
+                block.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+
+</body>
+</html>

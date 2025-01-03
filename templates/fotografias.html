@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Fotografías</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        :root {
+            --soft-gold: black;
+            --darker-blue: white;
+        }
+      
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+      
+        header {
+            background-color: var(--darker-blue);
+            padding: 10px 0;
+        }
+      
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+      
+        nav a {
+            color: var(--soft-gold);
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+      
+        nav a:hover {
+            background-color: #ecc164; /* Un color intermedio para el hover */
+        }
+      
+        .active {
+            background-color: #555; /* Color más oscuro para el enlace activo */
+        }
+      </style>
+      
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <p><a href="{{ url_for('fotografias') }}">Subir Fotografía</a></p>
+            <a href="{{ url_for('galerias') }}">Galerías Invitados</a>
+           
+        </nav>
+    </header>
+    
+
+    <div class="container">
+        <h1 class="my-4">Subir Fotografías</h1>
+        <form id="upload-form">
+            <div class="form-group">
+                <label for="nombre_usuario">Nombre del Usuario</label>
+                <input type="text" id="nombre_usuario" name="nombre_usuario" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="archivos">Seleccionar Archivos</label>
+                <input type="file" id="archivos" name="archivos" class="form-control" multiple required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Subir Fotografías</button>
+            </div>
+        </form>
+        <div class="progress" style="height: 25px;">
+            <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+        <div id="upload-status" class="mt-3"></div>
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="alert-container">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+    
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const xhr = new XMLHttpRequest();
+            const progressBar = document.getElementById('progress-bar');
+            const statusText = document.getElementById('upload-status');
+    
+            xhr.open('POST', '/subir_archivos', true);
+    
+            // Actualización de la barra de progreso
+            xhr.upload.addEventListener('progress', function (e) {
+                if (e.lengthComputable) {
+                    const porcentaje = Math.round((e.loaded / e.total) * 100);
+                    progressBar.style.width = porcentaje + '%';
+                    progressBar.setAttribute('aria-valuenow', porcentaje);
+                    progressBar.textContent = porcentaje + '%';
+                }
+            });
+    
+            // Respuesta del servidor
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    progressBar.classList.add('bg-success');
+                    statusText.innerHTML = `<p class="text-success">Subida completada con éxito.</p>`;
+                } else {
+                    progressBar.classList.add('bg-danger');
+                    statusText.innerHTML = `<p class="text-danger">Error al subir las fotografías.</p>`;
+                }
+            };
+    
+            xhr.onerror = function () {
+                progressBar.classList.add('bg-danger');
+                statusText.innerHTML = `<p class="text-danger">Error de red. Inténtalo de nuevo.</p>`;
+            };
+    
+            xhr.send(formData);
+    
+            // Reinicio de la barra de progreso para nuevas subidas
+            progressBar.style.width = '0%';
+            progressBar.setAttribute('aria-valuenow', '0');
+            progressBar.textContent = '0%';
+            progressBar.classList.remove('bg-success', 'bg-danger');
+            statusText.innerHTML = '';
+        });
+    </script>
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

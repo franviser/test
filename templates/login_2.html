@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cormorant', serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        .header {
+            position: absolute;
+            top: -0.25em;  
+            left: 20px;
+            font-size: 60vw;
+            text-transform: lowercase;
+            margin: 0;
+            padding: 0;
+            line-height: 0.7;  
+            letter-spacing: -5rem;
+            
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                font-size: 80vw;
+                left: -6%;
+            }
+        }
+
+        .info {
+            position: absolute;
+            top: 30%;
+            right: 120px;
+            transform: translateY(-50%);
+            text-align: right;
+            font-size: 24px;
+            line-height: 0.8;
+            font-family: 'Italiana', serif;
+            font-weight: 500;
+            color: #555555;
+        }
+
+        .photo-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50%;
+            z-index: -1;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Estilos para el botón de login */
+        .login-button {
+            width: 200px;
+            position: fixed; /* Fijo en la esquina superior derecha */
+            top: 100px; /* Margen desde la parte superior */
+            right: 300px; /* Margen desde la derecha */
+            background-color: black; /* Fondo negro */
+            color: white; /* Texto blanco */
+            padding: 10px 20px; /* Espaciado del botón */
+            border: none; /* Sin borde */
+            cursor: pointer; /* Cambia el cursor al pasar por encima */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+        }
+
+        /* Estilos para el modal de login */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Fijo en toda la pantalla */
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.5); /* Fondo semi-transparente */
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; /* Asegura que esté por encima del contenido */
+        }
+
+        .login-box {
+            border: 2px solid black; /* Marco negro */
+            padding: 10px; /* Espaciado dentro del recuadro */
+            background-color: white; /* Fondo blanco */
+            width: 60%; /* Asegura que ocupe todo el ancho disponible */
+            max-width: 400px; /* Limita el tamaño máximo del recuadro */
+            box-sizing: border-box; 
+        }
+
+        .form-container {
+           color:#555555; 
+           display:flex; 
+           flex-direction:center; 
+           align-items:center; 
+           flex-direction : column ;
+           gap :10px
+       }
+
+       .password-input {
+           color:#555555; 
+           width :100%; 
+           height :30px; 
+           background-color:white; 
+           color:black; 
+           font-size:.7rem; 
+           text-align:center; 
+           letter-spacing:.1rem; 
+           font-family:'Cormorant', serif; 
+           border:.1vw solid var(--darker-blue); 
+           box-sizing:border-box; 
+           margin-bottom :15px
+       }
+       .password-input:focus {
+        outline: none; /* Elimina el marco negro al enfocar */
+    }
+      
+
+       button {
+           color:#555555; 
+           padding :6px 14px ; 
+           background-color:white ; 
+           border:.1vw solid var(--darker-blue); 
+           color : var(--darker-blue); 
+           font-size:.7rem ; 
+           font-family:'Cormorant', serif ; 
+           letter-spacing:.1rem ; 
+           cursor:pointer ; 
+           width :100%; 
+           display:block ; 
+           box-sizing:border-box ;
+       }
+
+       @media (max-width :600px) {
+          .login-box { width :90%; padding :15px;}
+          .password-input { height :25px ; font-size:.7rem;}
+          button { padding :8px 10px ; font-size:.7rem;}
+       }
+    </style>
+    </style>
+    <title>Yes.</title>
+</head>
+<body>
+    <div class="header">yes.</div>
+    <div class="info">
+      <p>Iuli said yes.</p>
+      <p>September 22, 2024.<br />Barcelona.</p>
+    </div>
+
+    <!-- Login Button -->
+    <button class="login-button" onclick="showLoginModal()">Login</button>
+
+    <!-- Modal for Login -->
+    <div id="loginModal" class="modal">
+        <div class="login-box">
+          <div class="form-container">
+              <form action="{{ url_for('login_user') }}" method="POST">
+                  <input type="password" id="contraseña" name="contraseña" class="password-input" placeholder="Password" required />
+                  <button id="login-btn" type="submit">Login</button>
+              </form>
+          </div>
+      </div>
+    </div>
+
+    <div class="photo-container">
+      <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Photo" />
+    </div>
+
+    <script>
+       function showLoginModal() {
+           document.getElementById('loginModal').style.display = 'flex'; // Show the modal
+       }
+
+       window.onclick = function(event) {
+           if (event.target == document.getElementById('loginModal')) { // Close the modal if clicked outside
+               document.getElementById('loginModal').style.display = 'none';
+           }
+       }
+   </script>
+
+</body>
+</html>

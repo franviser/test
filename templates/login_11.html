@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño con letras</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden; /* Bloquea el scroll horizontal */
+            overflow-y: hidden; /* Bloquea el scroll vertical si es necesario */
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cormorant', serif;
+            background-color: #FFFDF0; /* Fondo solicitado */
+        }
+
+        /* Estilo para la letra F */
+        .letter-f {
+            font-size: 30vw;
+            position: absolute;
+            top: -5vw;
+            right: 0;
+            color: #000;
+            font-family: 'Cormorant', serif;
+        }
+
+        /* Estilo para la letra & */
+        .letter-ampersand {
+            font-size: 30vw;
+            position: absolute;
+            top: 30%;
+            left: -5%;
+            color: #000;
+            font-family: 'Cormorant', serif;
+        }
+
+        /* Estilo para la letra I */
+        .letter-i {
+            font-size: 30vw;
+            position: relative;
+            bottom: -30%;
+            left: 20%;
+            color: #000;
+            font-family: 'Cormorant', serif;
+        }
+
+        
+
+        @media (max-width: 768px) {
+            .letter-f, .letter-ampersand {
+                font-size: 50vw;
+            }
+
+            .letter-i {
+                font-size: 50vw;
+                position: absolute;
+                bottom: 0;
+                left: 70%;
+                color: #000;
+            }
+            
+            .floating-image {
+                position: fixed;
+                top: 0; 
+                z-index: -10; 
+                margin: 0% 0% 0% 0%; 
+            }
+
+         
+
+            /* Estilo para el formulario */
+        .form-container {
+            margin: 10% 0% 0% 30%;
+        }
+        }
+
+        .floating-image {
+            position: fixed;
+            top: 0; 
+            z-index: -10; 
+            margin: 0% 0% 0% -80%; 
+        }
+        
+        .floating-image img {
+            width: 200px; 
+            height: auto; 
+            display: block;
+        }
+
+        /* Estilo para el texto */
+        .floating-text {
+            position: fixed;
+            bottom: 20%;
+            left: 30%;
+            font-family: 'Cormorant', serif;
+            font-size: 0.8rem;
+            color: #000;
+        }
+        
+        @media (max-width:600px) {
+            .floating-text {
+                bottom: 48%;
+                left: 10%;
+            }
+            .floating-image {
+                position: fixed;
+                top: 0; 
+                z-index: -10; 
+                margin: 0% 0% 0% -60%; 
+            }
+         }
+    </style>
+</head>
+<body>
+    <!-- Letra F -->
+    <div class="letter-f">F</div>
+
+    <!-- Letra & -->
+    <div class="letter-ampersand">&</div>
+
+    <style>
+
+        /* Estilos para el botón de login */
+        .login-button {
+            width: 200px;
+            position: fixed; /* Fijo en la esquina superior derecha */
+            background-color: black; /* Fondo negro */
+            color: white; /* Texto blanco */
+            padding: 10px 20px; /* Espaciado del botón */
+            border: none; /* Sin borde */
+            cursor: pointer; /* Cambia el cursor al pasar por encima */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+            bottom: 26%;
+            left: 30%;
+        }
+    
+    @media (max-width:600px) {
+          .login-button {
+            bottom: 52%;
+            left: 10%;
+           
+        }
+    
+       }
+        /* Estilos para el modal de login */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Fijo en toda la pantalla */
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.5); /* Fondo semi-transparente */
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; /* Asegura que esté por encima del contenido */
+        }
+    
+        .login-box {
+            border: 2px solid black; /* Marco negro */
+            padding: 10px; /* Espaciado dentro del recuadro */
+            background-color: white; /* Fondo blanco */
+            width: 60%; /* Asegura que ocupe todo el ancho disponible */
+            max-width: 400px; /* Limita el tamaño máximo del recuadro */
+            box-sizing: border-box; 
+        }
+    
+        .form-container {
+           color:#555555; 
+           display:flex; 
+           flex-direction:center; 
+           align-items:center; 
+           flex-direction : column ;
+           gap :10px
+       }
+    
+       .password-input {
+           color:#555555; 
+           width :100%; 
+           height :30px; 
+           background-color:white; 
+           color:black; 
+           font-size:.7rem; 
+           text-align:center; 
+           letter-spacing:.1rem; 
+           font-family:'Cormorant', serif; 
+           border:.1vw solid var(--darker-blue); 
+           box-sizing:border-box; 
+           margin-bottom :15px
+       }
+       .password-input:focus {
+        outline: none; /* Elimina el marco negro al enfocar */
+    }
+      
+    
+       button {
+           color:#555555; 
+           padding :6px 14px ; 
+           background-color:white ; 
+           border:.1vw solid var(--darker-blue); 
+           color : var(--darker-blue); 
+           font-size:.7rem ; 
+           font-family:'Cormorant', serif ; 
+           letter-spacing:.1rem ; 
+           cursor:pointer ; 
+           width :100%; 
+           display:block ; 
+           box-sizing:border-box ;
+       }
+    
+       @media (max-width :600px) {
+          .login-box { width :90%; padding :15px;}
+          .password-input { height :25px ; font-size:.7rem;}
+          button { padding :8px 10px ; font-size:.7rem;}
+       }
+    </style>
+   <!-- Login Button -->
+   <button class="login-button" onclick="showLoginModal()">Login</button>
+
+   <!-- Modal for Login -->
+   <div id="loginModal" class="modal">
+       <div class="login-box">
+         <div class="form-container">
+             <form action="{{ url_for('login_user') }}" method="POST">
+                 <input type="password" id="contraseña" name="contraseña" class="password-input" placeholder="Password" required />
+                 <button id="login-btn" type="submit">Login</button>
+             </form>
+         </div>
+     </div>
+   </div>
+   <script>
+     function showLoginModal() {
+         document.getElementById('loginModal').style.display = 'flex'; // Show the modal
+     }
+
+     window.onclick = function(event) {
+         if (event.target == document.getElementById('loginModal')) { // Close the modal if clicked outside
+             document.getElementById('loginModal').style.display = 'none';
+         }
+     }
+ </script>
+
+    <!-- Letra I -->
+    <div class="letter-i">I</div>
+
+    <!-- Imagen flotante -->
+    <div class="floating-image">
+        <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav4.jpg" alt="Imagen flotante">
+    </div>
+
+    <style>
+        .contenedor {
+            position: absolute; /* Contenedor para la imagen */
+            height: 200px; /* Altura del contenedor (ajusta según sea necesario) */
+        }
+        
+        .imagen-controlada {
+            width: 400px; /* Ancho fijo de la imagen */
+            position: absolute; /* Posiciona la imagen sin afectar el flujo */
+            top: -20vw; /* Ajusta según sea necesario */
+            left: -10vw; /* Ajusta según sea necesario */
+            margin: 0; /* Sin margen para evitar alteraciones */
+            z-index: -1;
+        }
+    </style>
+
+    <div class="contenedor">
+        <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav15.jpg" alt="Descripción de la imagen" class="imagen-controlada"/>
+    </div>
+     <!-- Texto flotante -->
+     <div class="floating-text">Barcelona, Spain. <br> Save the date.</div>
+
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicación del Evento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cormorant', serif;
+            background-color: white;
+            color: black;
+            display: flex;
+            justify-content: center;  /* Centrar en el eje horizontal */
+            align-items: center;  /* Centrar en el eje vertical */
+            flex-direction: column;
+            height: 100vh;  /* Asegura que ocupe toda la altura de la pantalla */
+            text-align: center;
+            padding-top: 60px;  /* Ajusta el contenido para que no quede tapado por el menú fijo */
+        }
+        
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;  /* Fija el menú en la parte superior */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 1.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #007BFF;
+        }
+        
+        nav a.bold {
+            font-weight: bold;
+        }
+        
+        .menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            background-color: #fff;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .menu a:hover {
+            color: #007BFF;
+        }
+        
+        .menu a.bold {
+            font-weight: bold;
+        }
+        
+        .burger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .burger div {
+            height: 4px;
+            background-color: #333;
+            border-radius: 2px;
+        }
+        
+        .burger.active + .menu {
+            display: flex;
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+        
+            .burger {
+                display: flex;
+            }
+        
+            nav > a {
+                display: none;
+            }
+        
+            .menu {
+                display: none;
+                flex-direction: column;
+            }
+        
+            .burger.active + .menu {
+                display: flex;
+            }
+        }
+        
+        .container {
+            position: relative;
+            width: 50%;
+            max-width: 400px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;  /* Centra el contenido dentro de .container */
+        }
+        
+        .image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            max-width: 300px;  /* Limitando el ancho máximo */
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+        }
+        
+        .info {
+            margin: 20px;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .address {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        
+        .directions {
+            font-size: 1rem;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        /* Estilos del botón */
+        .google-maps-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 1px solid black;
+            background-color: transparent;
+            color: black;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .google-maps-button:hover {
+            background-color: #f0f0f0;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+        <nav>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="menu">
+                <a href="/index">Home</a>
+                <a href="/location">Location</a>
+                <a href="/invitado">RSVP</a>
+                <a href="/playlist">Music</a>
+                <a href="/schedule">Schedule</a>
+                <a href="/gifts">Gifts</a>
+                <a href="/dresscode">Dress Code</a>
+                <a href="/menu">Menu</a>
+                <a href="/diaboda" class="bold">Wedding Day</a>
+            </div>
+            <a href="/index">Home</a>
+            <a href="/location">Location</a>
+            <a href="/invitado">RSVP</a>
+            <a href="/playlist">Music</a>
+            <a href="/schedule">Schedule</a>
+            <a href="/gifts">Gifts</a>
+            <a href="/dresscode">Dress Code</a>
+            <a href="/menu">Menu</a>
+            <a href="/diaboda" class="bold">Wedding Day</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <img src="https://franciscovicenteserna.com/wp-content/uploads/2024/12/castillo_web.jpg" alt="Castillo" class="image">
+        
+    </div>
+
+    <div class="info">
+        <p>Nos complace invitarte a celebrar nuestro día especial en este lugar tan hermoso y lleno de historia. El castillo ofrece una atmósfera mágica que hará de nuestra boda un evento inolvidable.</p>
+        <p class="address">Dirección: Ctra. de Mollet a Moià, km 23,800, 08182 Sant Feliu de Codines, Barcelona</p>
+        <p class="directions">Para llegar, simplemente sigue la autopista A-2 en dirección a la playa, y toma la salida 23 hacia "Castillo Costa".</p>
+        <a href="https://maps.app.goo.gl/nV2s7tUVmvfLxUm27" class="google-maps-button" target="_blank">Ver en Google Maps</a>
+    </div>
+</body>
+</html>

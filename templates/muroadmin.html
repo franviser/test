@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administra el Muro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #333;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 10px;
+        }
+        header nav a:hover {
+            background-color: #555;
+        }
+        .content {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .post {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .post img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+        .actions button {
+            background-color: #ff4c4c;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .actions button:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul style="list-style-type: none; padding: 0; margin: 0; display: flex; gap: 20px; background-color: #333; color: white; padding: 10px 20px;">
+                <li><a href="{{ url_for('index') }}" style="color: white; text-decoration: none; padding: 10px;">Inicio</a></li>
+                <li><a href="{{ url_for('administrador') }}" style="color: white; text-decoration: none; padding: 10px;">RSVP</a></li>
+                <li><a href="{{ url_for('muroadmin') }}" style="color: white; text-decoration: none; padding: 10px;">Manage muro</a></li>
+            </ul>
+        </nav>
+    </header> 
+
+    <div class="content">
+        <h1>Administrar Publicaciones</h1>
+        <ul>
+            {% for post in posts %}
+                <li class="post">
+                    <p><strong>{{ post.usuario }}:</strong> {{ post.texto }}</p>
+                    {% if post.foto %}
+                        <img src="{{ url_for('static', filename='muro_folder/' + post.foto) }}" alt="Foto">
+                    {% endif %}
+                    <div class="actions">
+                        <form action="{{ url_for('eliminar_post', post_id=post.id) }}" method="POST">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

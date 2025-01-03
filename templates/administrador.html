@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <style>
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+            height: 30px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul style="list-style-type: none; padding: 0; margin: 0; display: flex; gap: 20px; background-color: #333; color: white; padding: 10px 20px;">
+                <li><a href="{{ url_for('index') }}" style="color: white; text-decoration: none; padding: 10px;">Inicio</a></li>
+                <li><a href="{{ url_for('administrador') }}" style="color: white; text-decoration: none; padding: 10px;">RSVP</a></li>
+                <li><a href="{{ url_for('muroadmin') }}" style="color: white; text-decoration: none; padding: 10px;">Manage muro</a></li>
+            </ul>
+        </nav>
+    </header> 
+
+    <h1>Lista de Invitados</h1>
+
+    <!-- Barra de progreso de almacenamiento -->
+    <h2>Almacenamiento utilizado</h2>
+    <div class="progress-bar">
+        <div class="progress-bar-fill" style="width: {{ porcentaje_usado }}%;">{{ porcentaje_usado|round(2) }}%</div>
+    </div>
+
+    <!-- Mensajes flash (si los hay) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Acompañante</th>
+                <th>Nombre del Acompañante</th>
+                <th>El invitado es niño</th>
+                <th>El acompañante es niño</th>
+                <th>Intolerancia Alimentaria</th>
+                <th>Comentarios</th>
+                <th>Canción Favorita</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invitado in invitados %}
+                <tr>
+                    <td>{{ invitado.nombre }}</td>
+                    <td>{{ invitado.apellido }}</td>
+                    <td>{{ invitado.telefono }}</td>
+                    <td>{{ 'Sí' if invitado.acompanante else 'No' }}
+                        {% if invitado.acompanante %}
+                            <!-- Botón para eliminar acompañante -->
+                            <form action="{{ url_for('eliminar_acompanante', id=invitado.id) }}" method="post" style="display:inline;">
+                                <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar el acompañante?');">Eliminar Acompañante</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                    <td>{{ invitado.nombre_acompanante or 'N/A' }}</td>
+                    <td>{{ 'Sí' if invitado.es_nino else 'No' }}</td>
+                    <td>{{ 'Sí' if invitado.es_nino_acompanante else 'No' }}</td>
+                    <td>{{ invitado.intolerancia or 'Ninguna' }}</td>
+                    <td>{{ invitado.comentarios or 'Sin comentarios' }}</td>
+                    <td>{{ invitado.cancion or 'No especificada' }}</td>
+                    <td>
+                        <!-- Formulario para eliminar el invitado -->
+                        <form action="{{ url_for('eliminar_invitado', id=invitado.id) }}" method="post" style="display:inline;">
+                            <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar a este invitado?');">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('exportar_invitados') }}" style="text-decoration: none; padding: 10px 20px; background-color: #4caf50; color: white; border-radius: 5px;">Exportar a CSV</a>
+        <a href="{{ url_for('exportar_invitados_excel') }}" style="text-decoration: none; padding: 10px 20px; background-color: #007bff; color: white; border-radius: 5px;">Exportar a Excel</a>
+    </div>
+    
+</body>
+</html>

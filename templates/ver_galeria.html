@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de {{ nombre_usuario }}</title>
+    <style>
+        /* Contenedor de la galería */
+        .gallery {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Hasta 4 imágenes por fila */
+          gap: 20px; /* Espacio entre fotos */
+          padding: 10px;
+        }
+        
+        /* Elementos individuales (fotos sin bordes ni sombras) */
+        .photo-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        
+        /* Las imágenes mantendrán su proporción original y serán más grandes */
+        .photo-item img {
+          width: 100%; /* La imagen ocupará todo el ancho disponible */
+          height: auto; /* Mantiene la proporción original */
+          object-fit: contain; /* Ajusta la imagen dentro del contenedor sin perder proporciones */
+          max-height: 1000px; /* Aumento el tamaño máximo de la imagen */
+          border: none; /* Sin borde */
+          box-shadow: none; /* Sin sombra */
+          transition: none; /* Sin efectos hover */
+        }
+
+        /* Mensaje de no hay fotos */
+        .gallery p {
+          grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+          text-align: center;
+          font-size: 16px;
+          color: #555;
+        }
+
+        /* Estilo del header */
+        header {
+            background-color: #272727;
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #ecc164;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #444;
+        }
+
+        /* Botón "Descargar Todas las Fotos" */
+        a button {
+            background-color: #007bff;
+            padding: 10px 20px;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        a button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('galerias') }}">Galerías</a>
+            <a href="{{ url_for('invitado') }}">Invitados</a>
+            <a href="{{ url_for('fotografias') }}">Fotografías</a>
+        </nav>
+    </header>
+    <h1>Galería de {{ nombre_usuario }}</h1>
+    
+    <!-- Botón para descargar todas las fotos -->
+    <a href="{{ url_for('descargar_todas', nombre_usuario=nombre_usuario) }}">
+        <button>Descargar Todas las Fotos</button>
+    </a>
+    
+    <!-- Mostrar fotos de la galería -->
+    <div class="gallery">
+        {% for foto in fotos %}
+            <div class="photo-item">
+                <img src="{{ url_for('upload_file', filename=nombre_usuario + '/' + foto.archivo) }}" 
+                    alt="Foto de {{ nombre_usuario }}" loading="lazy">
+
+                <!-- Campo de texto para el comentario -->
+                <textarea class="comment-text" placeholder="Escribe un comentario..."></textarea>
+
+                <!-- Botones de acción -->
+                <div class="buttons">
+                    <a href="{{ url_for('upload_file', filename=nombre_usuario + '/' + foto.archivo) }}" download>
+                        <button class="button">Descargar Foto</button>
+                    </a>
+                    <button class="button send-to-muro" 
+                            data-foto="{{ foto.archivo }}" 
+                            data-usuario="{{ nombre_usuario }}">
+                        Send to the Muro
+                    </button>
+                </div>
+            </div>
+        {% else %}
+            <p>No hay fotos en esta galería.</p>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.querySelectorAll('.send-to-muro').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+        
+                const foto = this.dataset.foto; // Nombre del archivo de la foto
+                const usuario = this.dataset.usuario; // Usuario actual
+                const textarea = this.closest('.photo-item').querySelector('.comment-text'); // Campo de texto
+                const comentario = textarea.value; // Texto del comentario
+        
+                if (!comentario.trim()) {
+                    alert('Por favor, escribe un comentario antes de enviar.');
+                    return; // Evita enviar si el comentario está vacío
+                }
+        
+                // Realiza una solicitud POST para enviar los datos al servidor
+                fetch(`/send_to_muro`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ foto, usuario, comentario })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Foto publicada en el muro con tu comentario.');
+                        textarea.value = ''; // Borra el texto del comentario
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al enviar el comentario.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

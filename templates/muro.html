@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 10px;
+        }
+
+        header nav a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h1, h2 {
+            color: #555;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .post {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .post img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .votacion {
+            margin-top: 10px;
+        }
+
+        .votacion button {
+            background-color: #007bff;
+        }
+
+        .votacion button:hover {
+            background-color: #0056b3;
+        }
+
+        .votacion span {
+            margin-left: 10px;
+        }
+
+        .sort-links {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .sort-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .sort-links a:hover {
+            text-decoration: underline;
+        }
+
+        .image-container {
+    width: 100%; /* O un tamaño fijo como 300px */
+    aspect-ratio: 16/9; /* Proporción de la imagen */
+    overflow: hidden; /* Oculta lo que exceda */
+    position: relative;
+}
+
+.image-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra la imagen */
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover; /* Recorta para llenar el espacio */
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('fotografias') }}">Subir Fotografía</a>
+            <a href="{{ url_for('galerias') }}">Galerías Invitados</a>
+            <a href="{{ url_for('diaboda') }}">Baúl de los Recuerdos</a> <!-- Nuevo enlace añadido -->
+            <a href="{{ url_for('muro') }}">muro</a> <!-- Nuevo enlace añadido -->
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>Publica en el Muro</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            <label for="texto">Escribe tu mensaje (máximo 220 caracteres):</label>
+            <textarea id="texto" name="texto" maxlength="220" required></textarea>
+        
+            <label for="foto">Sube una foto (opcional):</label>
+            <input type="file" id="foto" name="foto">
+        
+            <button type="submit">Publicar</button>
+        </form>
+
+        <div class="sort-links">
+            Ordenar por:
+            <a href="{{ url_for('muro', sort='votos') }}">Votos</a> |
+            <a href="{{ url_for('muro', sort='recientes') }}">Recientes</a>
+        </div>
+        
+        <h2>Publicaciones</h2>
+        <ul>
+            {% for post in posts %}
+                <li class="post">
+                    <p><strong>{{ post.usuario }}:</strong> {{ post.texto }}</p>
+                    {% if post.foto %}
+                <img src="{{ url_for('static', filename='muro_folder/' + post.foto) }}"
+                srcset="{{ url_for('static', filename='muro_folder/' + post.foto) }} 1024w,
+                        {{ url_for('static', filename='muro_folder/thumbnail_' + post.foto) }} 640w"
+                sizes="(max-width: 600px) 100vw, 50vw"
+                alt="Foto">
+
+
+                    {% endif %}
+                    <div class="votacion">
+                        <form action="{{ url_for('votar', post_id=post.id) }}" method="POST">
+                            <button type="submit">Votar</button>
+                            <span>Votos: {{ post.votos }}</span>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

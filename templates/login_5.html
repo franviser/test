@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
+    <title>Fran & Iuli</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        .split-screen {
+            display: flex;
+            height: 100%;
+            width: 100vw;
+        }
+        .left-half {
+            flex: 0.5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: visible;
+        }
+        .right-half {
+            flex: 0.5;
+        }
+        .centered-image {
+            width: 400px;
+            height: auto;
+            object-fit: cover;
+        }
+        .full-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant', serif;
+            font-size: 4rem;
+            color: black;
+            letter-spacing: 1.75rem;
+            z-index: 10;
+            white-space: nowrap;
+        }
+        .below-image-text {
+            width: 400px;
+            text-align: center;
+            margin-top: 20px;
+            font-family: 'Italiana', serif;
+            font-size: 1rem;
+            color: black;
+        }
+
+        .login-button {
+          width: 200px; 
+          position: fixed; 
+          top: 20px; 
+          left: 50%; 
+          transform: translateX(-50%); 
+          align-items: center; 
+          background-color: black; 
+          color: white; 
+          padding: 10px 20px; 
+          border: none; 
+          cursor: pointer; 
+          z-index: 1000; 
+      }
+      
+        /* Estilos para el modal de login */
+        .modal {
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.5); 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; 
+        }
+
+        .login-box {
+            border: 2px solid black; 
+            padding: 10px; 
+            background-color:white; 
+            width:60%; 
+            max-width :400px; 
+            box-sizing:border-box; 
+        }
+
+        .form-container {
+           color:#555555; 
+           display:flex; 
+           flex-direction:center; 
+           align-items:center; 
+           flex-direction : column ;
+           gap :10px
+       }
+
+       .password-input {
+           color:#555555; 
+           width :100%; 
+           height :30px; 
+           background-color:white; 
+           color:black; 
+           font-size:.7rem; 
+           text-align:center; 
+           letter-spacing:.1rem; 
+           font-family:'Cormorant', serif; 
+           border:.1vw solid var(--darker-blue); 
+           box-sizing:border-box; 
+           margin-bottom :15px
+       }
+       .password-input:hover,
+       .password-input.focus {
+         outline:none ; /* Elimina el marco negro al enfocar */
+     }
+      
+
+       button {
+           color:#555555; 
+           padding :6px 14px ; 
+           background-color:white ; 
+           border:.1vw solid var(--darker-blue); 
+           color : var(--darker-blue); 
+           font-size:.7rem ; 
+           font-family:'Cormorant', serif ; 
+           letter-spacing:.1rem ; 
+           cursor:pointer ; 
+           width :100%;  
+           display:block ;  
+           box-sizing:border-box ;
+       }
+
+       @media (max-width :600px) {
+          .split-screen {
+              flex-direction : column ; /* Cambiar a diseño de columna para móviles */
+          }
+          .left-half, .right-half {
+              flex :1 ; /* Permitir que ambas mitades ocupen espacio igual */
+              width :100% ; /* Asegurar el ancho completo en móviles */
+          }
+          .centered-image, .full-image {
+              width :100%; /* Hacer imágenes responsivas */
+              height:auto; /* Mantener relación de aspecto */
+          }
+          .login-box { width :90%; padding :15px;}
+          .password-input { height :25px ; font-size:.7rem;}
+          button { padding :8px 10px ; font-size:.7rem;}
+
+          .overlay-text {
+            font-size: 2rem;
+            letter-spacing: 1rem;
+           
+       }
+    </style>
+</head>
+<body>
+    <div class="split-screen">
+        <div class="left-half">
+            <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav15.jpg" alt="Imagen centrada" class="centered-image">
+            <div class="overlay-text">Fran & Iuli</div>
+            <div class="below-image-text"><p>Save the date</p><p>09.06.2025</p></div>
+        </div>
+        <div class="right-half">
+             <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav4.jpg" alt="Imagen completa" class="full-image">
+         </div>
+    </div>
+
+    <!-- Botón de login -->
+    <button class="login-button" onclick="showLoginModal()">Login</button>
+
+    <!-- Modal de login -->
+    <div id="loginModal" class="modal">
+        <div class="login-box">
+           <div class="form-container">
+                <form action="{{ url_for('login_user') }}" method="POST">
+                    <input type="password" id="contraseña" name="contraseña" class="password-input" placeholder="Password" required />
+                    <button id="login-btn" type="submit">Login</button>
+                </form>
+           </div>
+       </div>
+    </div>
+
+    <script>
+       function showLoginModal() {
+           document.getElementById('loginModal').style.display = 'flex'; // Muestra el modal
+       }
+
+       window.onclick = function(event) {
+           if (event.target == document.getElementById('loginModal')) { // Cierra el modal si se hace clic fuera
+               document.getElementById('loginModal').style.display = 'none';
+           }
+       }
+   </script>
+</body>
+</html>

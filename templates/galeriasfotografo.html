@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Fotografías</title>
+    <style>
+        :root {
+            --soft-gold: #ecc164; /* Dorado suave */
+            --dark-gray: #333; /* Gris oscuro */
+            --light-gray: #f1f1f1; /* Gris claro */
+            --hover-bg: #f0f0f0; /* Fondo para hover */
+            --text-color: #333; /* Color oscuro para texto */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff; /* Fondo blanco */
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: #fff;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--light-gray);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--soft-gold);
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 2rem;
+            color: var(--dark-gray);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Establecer un tamaño mínimo para las columnas */
+            gap: 20px; /* Ajustar el espacio entre las columnas */
+            justify-items: center;
+        }
+        
+
+        li {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+        }
+
+        .galeria img {
+            width: 100%;
+            height: 20vw; /* Usa vw para hacer las imágenes más grandes */
+            object-fit: cover;
+            border-bottom: 2px solid var(--soft-gold);
+        }
+
+        a {
+            display: block;
+            color: var(--dark-gray);
+            text-decoration: none;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--soft-gold);
+        }
+
+        /* Estilo para la galería del fotógrafo */
+        .galeria.photographer {
+            grid-column: span 2; /* Ocupa más espacio */
+        }
+
+        .galeria.photographer img {
+            height: auto;
+            max-height: 60vh;
+        }
+
+        /* Estilos específicos para móviles */
+        @media (max-width: 768px) {
+            ul {
+                grid-template-columns: 1fr; /* Una sola columna en dispositivos móviles */
+                gap: 5vw; /* Más espacio entre las imágenes */
+            }
+
+            .galeria img {
+                height: 30vw; /* Imágenes aún más grandes en móviles */
+            }
+
+            h1, h2 {
+                font-size: 2rem; /* Aumentar tamaño de los encabezados */
+            }
+
+            nav a {
+                font-size: 1.2rem; /* Mejor tamaño de los enlaces de navegación */
+            }
+        }
+
+        /* Estilo para el botón */
+        .button-container {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 30px; /* Espacio entre el botón y las galerías */
+        }
+
+        .button-container a {
+            display: inline-block;
+            background-color: var(--soft-gold);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .button-container a:hover {
+            background-color: var(--dark-gray);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('fotografias') }}">Subir Fotografía</a>
+            <a href="{{ url_for('galerias') }}">Galerías</a>
+        </nav>
+    </header>
+    
+    <h1>Photographer Galery</h1>
+
+    <ul>
+        {% for folder in subfolders %}
+            <li class="galeria photographer">
+                <!-- Cambiar url_for para usar el prefijo 'fotografo' correctamente -->
+                <a href="{{ url_for('fotografogaleriamomento', momento=folder['folder']) }}">
+                    {% if folder['thumbnail'] %}
+                        <!-- Ruta de imagen construida correctamente -->
+                        <img src="/static/{{ folder['thumbnail'] }}" 
+                             alt="Primera foto de {{ folder['folder'] }}">
+                    {% else %}
+                        <img src="/static/default.jpg" alt="Imagen predeterminada">
+                    {% endif %}
+                    {{ folder['folder'] }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>

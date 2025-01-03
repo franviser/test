@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda de Emily y Samuel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400&family=Italiana:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Cormorant', serif;
+        }
+        .container {
+            width: 90%;
+            text-align: center;
+            font-family: 'Italiana', serif;
+            font-size: 7vw;
+            line-height: 0.7;
+            letter-spacing: -1rem;
+            margin-top: 100px;
+        }
+        .additional-info {
+            font-family: 'Cormorant', serif;
+            font-size: 1.5vw;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .line {
+            display: inline-block;
+            width: 50px;
+            border-top: 2px solid black;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+
+        @media (max-width:600px) {
+            .container {
+                font-size: 15vw;
+                line-height: 1;
+                letter-spacing: -0.4rem;
+            }
+
+            .additional-info {
+                font-size: 3vw;
+                margin-top: 30px;
+            }
+        }
+
+        /* Estilos del bloque de imágenes */
+        .image-block {
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px; /* Ajusta el margen superior */
+        }
+        .image-block div {
+            position: relative;
+        }
+        .image-block img {
+            width: 100%;
+            display: block;
+        }
+
+        @media (max-width:600px) {
+            .image-block div {
+                margin: 10px 0;
+            }
+        }
+
+    
+      
+    </style>
+</head>
+<body>
+    <div class="container">
+        Emily&nbsp; and &nbsp;Samuel <br> are &nbsp; getting <br> married.
+    </div>
+    <div class="additional-info">
+        La Baronia, Barcelona
+        <span class="line"></span>
+        Fran & Iuli
+    </div>
+
+    <!-- Bloque de imágenes -->
+    <div class="image-block">
+        <div style="z-index: -1; width: 45%; flex: 0 0 auto; margin: 0% 0% 10% -10%;">
+            <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav15.jpg" alt="Barcelona Elegance: elegant wedding photography Barcelona">
+        </div>
+
+        <div class="text-block" style="margin: -62% 0% -10% -10%; letter-spacing: -0.11em; text-align: right; line-height: 0.7;">
+            Fran and Iuli <br> have decided to celebrate <br> the love lived <br> and the love yet to come <br> with the people <br>who fill their lives the most <br> in a celebration <br> of love and life.
+          </div>
+          <style> .text-block {
+            width: 100%;
+            font-size: 3vw;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: 'cormorant', serif; /* Cambia la fuente a DM Serif */
+            margin: 0% 0% 0% 0%;
+            white-space: nowrap; /* Evita el salto de línea */
+            letter-spacing: -3vw; 
+            z-index:1000;
+          }
+      </style>
+
+        <div style="z-index: -1; width: 30%; flex: 0 0 auto; margin: 40% -5% 10% 0%;">
+            <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav4.jpg" alt="Barcelona Elegance: elegant wedding photography Barcelona">
+        </div>
+        <div style="width: 52%; flex: 0 0 auto; margin: -20% 0% 0% 0%;">
+            <img src="https://franciscoyiuliana.com/wp-content/uploads/2023/11/DSC_5406-copia-scaled.jpg" alt="Barcelona Elegance: elegant wedding photography Barcelona">
+        </div>
+    </div>
+
+    <style>
+
+        /* Estilos para el botón de login */
+        .login-button {
+            width: 200px;
+            position: fixed; /* Fijo en la esquina superior derecha */
+            top: 65%; /* Margen desde la parte superior */
+            right: 50%; /* Margen desde la derecha */
+            background-color: black; /* Fondo negro */
+            color: white; /* Texto blanco */
+            padding: 10px 20px; /* Espaciado del botón */
+            border: none; /* Sin borde */
+            cursor: pointer; /* Cambia el cursor al pasar por encima */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+        }
+    
+    @media (max-width:600px) {
+          .login-button {
+            right: 50px; /* Margen desde la derecha */
+           
+        }
+    
+       }
+        /* Estilos para el modal de login */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Fijo en toda la pantalla */
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.5); /* Fondo semi-transparente */
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; /* Asegura que esté por encima del contenido */
+        }
+    
+        .login-box {
+            border: 2px solid black; /* Marco negro */
+            padding: 10px; /* Espaciado dentro del recuadro */
+            background-color: white; /* Fondo blanco */
+            width: 60%; /* Asegura que ocupe todo el ancho disponible */
+            max-width: 400px; /* Limita el tamaño máximo del recuadro */
+            box-sizing: border-box; 
+        }
+    
+        .form-container {
+           color:#555555; 
+           display:flex; 
+           flex-direction:center; 
+           align-items:center; 
+           flex-direction : column ;
+           gap :10px
+       }
+    
+       .password-input {
+           color:#555555; 
+           width :100%; 
+           height :30px; 
+           background-color:white; 
+           color:black; 
+           font-size:.7rem; 
+           text-align:center; 
+           letter-spacing:.1rem; 
+           font-family:'Cormorant', serif; 
+           border:.1vw solid var(--darker-blue); 
+           box-sizing:border-box; 
+           margin-bottom :15px
+       }
+       .password-input:focus {
+        outline: none; /* Elimina el marco negro al enfocar */
+    }
+      
+    
+       button {
+           color:#555555; 
+           padding :6px 14px ; 
+           background-color:white ; 
+           border:.1vw solid var(--darker-blue); 
+           color : var(--darker-blue); 
+           font-size:.7rem ; 
+           font-family:'Cormorant', serif ; 
+           letter-spacing:.1rem ; 
+           cursor:pointer ; 
+           width :100%; 
+           display:block ; 
+           box-sizing:border-box ;
+       }
+    
+       @media (max-width :600px) {
+          .login-box { width :90%; padding :15px;}
+          .password-input { height :25px ; font-size:.7rem;}
+          button { padding :8px 10px ; font-size:.7rem;}
+       }
+    </style>
+     <!-- Login Button -->
+     <button class="login-button" onclick="showLoginModal()">Login</button>
+
+     <!-- Modal for Login -->
+     <div id="loginModal" class="modal">
+         <div class="login-box">
+           <div class="form-container">
+               <form action="{{ url_for('login_user') }}" method="POST">
+                   <input type="password" id="contraseña" name="contraseña" class="password-input" placeholder="Password" required />
+                   <button id="login-btn" type="submit">Login</button>
+               </form>
+           </div>
+       </div>
+     </div>
+     <script>
+       function showLoginModal() {
+           document.getElementById('loginModal').style.display = 'flex'; // Show the modal
+       }
+ 
+       window.onclick = function(event) {
+           if (event.target == document.getElementById('loginModal')) { // Close the modal if clicked outside
+               document.getElementById('loginModal').style.display = 'none';
+           }
+       }
+   </script>
+</body>
+</html>

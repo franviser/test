@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save the Date</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Cinzel:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Alinea los bloques verticalmente */
+            height: 100vh;
+            font-family: 'Cinzel', serif;
+            overflow: hidden;
+            justify-content: center; /* Centra verticalmente todo el contenido */
+            align-items: center; /* Centra los bloques horizontalmente */
+        }
+
+        .block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 20px 0; /* Espacio entre los bloques */
+        }
+
+        /* Primer bloque */
+        .block-text {
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 1.5;
+            font-size: 3rem;
+        }
+
+        .block-text span {
+            display: block;
+        }
+
+        /* Bloques con imagen */
+        .block-image {
+            position: relative;
+            overflow: hidden; /* Oculta las partes fuera del marco */
+            width: 90%; /* Ajusta tamaño según sea necesario */
+            height: 80%; /* Aumenta la altura */
+            border-radius: 50% / 20% 20% 0 0; /* Da forma al contenedor */
+            border: 5px solid black; /* Marco negro alrededor */
+        }
+
+        .block-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .block-image .frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: transparent;
+            border: 2px solid black;
+            border-radius: 50% / 20% 20% 0 0;
+            z-index: 2;
+        }
+
+        .block-image .number {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.5rem;
+            z-index: 3;
+        }
+
+        .form-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            padding: 20px;
+            border: 2px solid #000;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .password-input {
+            width: 100%; /* Ocupa todo el ancho del contenedor */
+            height: 40px;
+            border: 1px solid black;
+            background: transparent;
+            color: black;
+            font-size: 1rem;
+            text-align: center;
+            letter-spacing: 0.1rem;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: black;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: var(--white);
+            border: 2px solid var(--darker-blue);
+            border-radius: 5px;
+            color: var(--darker-blue);
+            font-size: 0.8rem;
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 0.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="block block-text">
+        <div>
+            <span>SAVE</span>
+            <span>THE</span>
+            <span>DATE</span>
+        </div>
+    </div>
+
+    <div class="block block-image">
+        <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Parejas">
+        <div class="frame"></div>
+        <div class="number">01.</div>
+    </div>
+
+    <div class="block block-image">
+        <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Parejas">
+        <div class="frame"></div>
+        <div class="number">02.</div>
+    </div>
+
+    <div class="block block-image">
+        <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Parejas">
+        <div class="frame"></div>
+        <div class="number">03.</div>
+    </div>
+
+    <div class="form-container" id="form-container">
+        <form action="{{ url_for('login_user') }}" method="POST">
+            <div class="password-container">
+                <input
+                    type="password"
+                    id="contraseña"
+                    name="contraseña"
+                    class="password-input"
+                    placeholder="Password"
+                    required
+                />
+            </div>
+            <button id="login-btn" type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Mostrar el formulario después de 1.5 segundos
+        setTimeout(() => {
+            document.getElementById('form-container').style.opacity = 1;
+            document.getElementById('form-container').style.top = "50%";
+        }, 1500);
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our wedding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Cinzel:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: auto;
+            height: 100%;
+        }
+
+        .save-date {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 4rem;
+            text-transform: uppercase;
+            font-family: 'Cinzel', serif;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 0;
+            overflow: hidden;
+            margin: 10% 0% 0% 0%;
+        }
+
+        .block {
+            width: 43%;
+            height: 60vw;
+            position: relative;
+            text-align: center;
+        }
+
+        .block-image {
+            width: 100%; 
+            height: 100%; 
+            position: relative;
+            overflow: hidden;
+            border-radius: 50% / 20% 20% 0 0;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .block-image img {
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .block:first-child .block-image {
+            transform: translateX(-50%);
+        }
+
+        .block:last-child .block-image {
+            transform: translateX(50%);
+        }
+
+        .block:nth-child(2) .block-image {
+            transform: translateX(0);
+        }
+
+        .frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: transparent;
+        }
+
+        .form-container {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30vw;
+            padding: 20px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .password-input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid black;
+            background: transparent;
+            color: black;
+            font-size: 0.8rem;
+            text-align: center;
+            letter-spacing: 0.1rem;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: black;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: var(--white);
+            border: 2px solid var(--darker-blue);
+            border-radius: 5px;
+            color: var(--darker-blue);
+            font-size: 0.8rem;
+            font-family: "cormorant";
+            letter-spacing: 0.1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                width: 20vw; /* Hacer más pequeño el recuadro de la contraseña */
+                top: 30%; /* Ajustar la posición */
+                padding-left: 10px; /* Añadir un poco de margen */
+                padding-right: 10px; /* Añadir un poco de margen */
+            }
+            .password-input {
+                height: 10vw;
+                color: black;
+                font-size: 0.5rem;
+                
+            }
+        button {
+                padding: 5px 20px;
+                background-color: var(--white);
+                border: 2px solid var(--darker-blue);
+                border-radius: 5px;
+                color: var(--darker-blue);
+                font-size: 0.5rem;
+                font-family: 'Chakra Petch', sans-serif;
+                letter-spacing: 0.1rem;
+                cursor: pointer;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .block {
+                width: 40%;
+                height: 100vw;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Formulario de inicio de sesión -->
+    <div class="form-container" id="form-container">
+        <form action="{{ url_for('login_user') }}" method="POST">
+                <div class="password-container">
+                    <input
+                        type="password"
+                        id="contraseña"
+                        name="contraseña"
+                        class="password-input"
+                        placeholder="Password"
+                        required
+                    />
+                </div>
+                <button id="login-btn" type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Save the Date -->
+    <div class="save-date">
+        <span>SAVE</span><br>
+        <span>THE</span><br>
+        <span>DATE</span>
+    </div>
+
+    <!-- Bloques de contenido -->
+    <div class="container" >
+        <div class="block">
+                <div class="block-image">
+                    <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Pareja 1">
+                    <div class="frame"></div>
+                </div>
+                
+        </div>
+
+        <div class="block">
+                <div class="block-image">
+                    <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Pareja 2">
+                    <div class="frame"></div>
+                </div>
+                
+        </div>
+
+        <div class="block">
+                <div class="block-image">
+                    <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/03/parejas1.jpg" alt="Pareja 3">
+                    <div class="frame"></div>
+                </div>
+                
+        </div>
+    </div>
+
+</body>
+</html>

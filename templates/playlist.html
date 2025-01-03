@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinilo y Playlist</title>
+  <style>
+
+    body {
+      font-family: 'Cormorant', serif; /* Cambiar a Cormorant */
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9; /* Fondo claro para un look más lujoso */
+  }
+
+    /* Contenedor general */
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      flex-wrap: wrap; /* Esto permite que los bloques se ajusten en pantallas pequeñas */
+    }
+
+    /* Contenedor para cada bloque (vinilo y playlist) */
+    .half {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      margin-bottom: 20px; /* Agregamos espacio entre los bloques cuando estén uno debajo del otro */
+    }
+
+    /* Estilos para el vinilo */
+    .fundo {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    .disco {
+      position: absolute;
+      top: 30px;
+      left: 60px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: #2f2f2f;
+    }
+
+    .disco::after {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #959595;
+      content: "";
+    }
+
+    .disco::before {
+      position: absolute;
+      top: 68px;
+      left: 0px;
+      width: 155px;
+      height: 15px;
+      background: #fff;
+      content: "";
+      opacity: 0.1;
+      animation-name: giraa;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes giraa {
+      0% {transform: rotate(0deg);}
+      100% {transform: rotate(360deg);}
+    }
+
+    .furo {
+      position: absolute;
+      top: 100px;
+      left: 135px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .agulha {
+      position: absolute;
+      top: 70px;
+      left: -20px;
+      width: 50px;
+      height: 10px;
+      border-radius: 5%;
+      background: #dead7e;
+      animation-name: move;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes move {
+      50% {transform: translateX(5px);}
+    }
+
+    .agulha::after {
+      position: absolute;
+      top: 3px;
+      left: 50px;
+      width: 10px;
+      height: 4px;
+      background: #fff;
+      content: "";
+    }
+
+    /* Efecto hover en el fondo */
+    .fundo:hover {
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+      filter: gray; /* IE */
+    }
+
+    /* Playlist */
+  
+
+    .playlist-container h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .playlist-container iframe {
+      width: 100%;
+      height: 380px;
+      border: none;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center; /* Centrado horizontal */
+      align-items: center; /* Centrado vertical */
+      height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+    }
+    
+    .playlist-container {
+      text-align: center;
+      max-width: 40%;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      margin: 0 auto; /* Centrado horizontal */
+    }
+    
+
+    .playlist-container a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive: para pantallas más pequeñas */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column; /* Coloca los bloques uno debajo del otro */
+        align-items: center;
+      }
+
+      .half {
+        width: 80%; /* Los bloques ocupan el 80% del ancho de la pantalla en dispositivos pequeños */
+        margin-bottom: 20px;
+      }
+
+      .fundo {
+        width: 250px;
+        height: 250px;
+      }
+
+      .playlist-container iframe {
+        height: 300px; /* Ajusta la altura del iframe para que sea visible correctamente */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .playlist-container iframe {
+        height: 250px; /* Ajusta más la altura para pantallas más pequeñas */
+      }
+
+      .playlist-container {
+        
+        max-width: 90%;
+
+      .fundo {
+        width: 220px;
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <style> 
+    header {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+  }
+
+  nav {
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0;
+  }
+
+  nav a {
+      text-decoration: none;
+      color: #333;
+      margin: 0 1.5rem;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+  }
+
+  nav a:hover {
+      color: #007BFF;
+  }
+
+  nav a.bold {
+      font-weight: bold;
+  }
+
+  .menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      background-color: #fff;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .menu a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+  }
+
+  .menu a:hover {
+      color: #007BFF;
+  }
+
+  .menu a.bold {
+      font-weight: bold;
+  }
+
+  .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+  }
+
+  .burger div {
+      height: 4px;
+      background-color: #333;
+      border-radius: 2px;
+  }
+
+  .burger.active + .menu {
+      display: flex;
+  }
+
+  .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: url('https://franciscoyiuliana.com/wp-content/uploads/2024/02/playa-9.jpg') center/cover no-repeat;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .hero h1 {
+      font-size: 3rem;
+      margin: 0.5rem 0;
+  }
+
+  .hero p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+      nav {
+          position: relative;
+      }
+
+      .burger {
+          display: flex;
+      }
+
+      nav > a {
+          display: none;
+      }
+
+      .menu {
+          display: none;
+          flex-direction: column;
+      }
+
+      .burger.active + .menu {
+          display: flex;
+      }
+  }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const burger = document.querySelector('.burger');
+      const menu = document.querySelector('.menu');
+
+      burger.addEventListener('click', () => {
+          burger.classList.toggle('active');
+          menu.classList.toggle('active');
+      });
+  });
+</script>
+</head>
+<body>
+<header>
+  <nav>
+      <div class="burger">
+          <div></div>
+          <div></div>
+          <div></div>
+      </div>
+      <div class="menu">
+          <a href="/index">Home</a>
+          <a href="/location">Location</a>
+          <a href="/invitado">RSVP</a>
+          <a href="/playlist">Music</a>
+          <a href="/schedule">Schedule</a>
+          <a href="/gifts">Gifts</a>
+          <a href="/dresscode">Dress Code</a>
+          <a href="/menu">Menu</a>
+          <a href="/diaboda" class="bold">Wedding Day</a>
+      </div>
+      <a href="/index">Home</a>
+      <a href="/location">Location</a>
+      <a href="/invitado">RSVP</a>
+      <a href="/playlist">Music</a>
+      <a href="/schedule">Schedule</a>
+      <a href="/gifts">Gifts</a>
+      <a href="/dresscode">Dress Code</a>
+      <a href="/menu">Menu</a>
+      <a href="/diaboda" class="bold">Wedding Day</a>
+  </nav>
+</header>
+
+
+<style>
+  a {
+    color: white; /* Cambia el color del texto a blanco */
+    text-decoration: none; /* Opcional: elimina el subrayado del enlace */
+  }
+  
+  a:hover {
+    color: #ccc; /* Opcional: cambia el color del texto cuando el enlace se pasa por encima */
+  }
+  
+  .texto-vinilo {
+    font-size: 1vw; /* Ajusta el tamaño del texto si lo deseas */
+  } 
+
+  @media (max-width: 768px) {
+    .texto-vinilo {
+      font-size: 16px; /* Ajusta el tamaño del texto si lo deseas */
+      margin-top: -20%;
+    } 
+    }
+
+    h1 {
+      color: white; /* Cambia el color del texto a blanco */
+    }
+    
+   
+</style>
+
+<div class="container">
+    <div class="playlist-container">
+      <h1>Playlist Colaborativa</h1>
+      <iframe src="https://open.spotify.com/embed/playlist/39wLqVLPPPrvXutRaHbt63" allow="encrypted-media"></iframe>
+      <a href="https://open.spotify.com/playlist/39wLqVLPPPrvXutRaHbt63?si=9be8b25608e849ce&pt=437c920757d339ac08c6222ec0059783" target="_blank">
+        Agregar canciones a la Playlist
+      </a>
+    </div>
+  </div>
+
+
+
+
+  
+</body>
+</html>

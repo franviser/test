@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Save The Date</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cormorant', serif;
+            overflow-x: hidden;
+            background-color: #FFFDF0; /* Color de fondo actualizado */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .top-section {
+            display: flex;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .left-section {
+            width: 33.33%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cormorant', serif;
+            font-size: 30vw;
+            line-height: 0.4;
+        }
+
+        .separator {
+            width: 1px;
+            background-color: black;
+            height: 110%;
+        }
+
+        .form-section {
+            width: 66.67%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            position: relative;
+            top: 20px;
+            width: 180px;
+            text-align: center;
+            font-family: 'Cormorant', serif;
+        }
+
+        .password-input {
+            width: 100%;
+            height: 25px;
+            border: 1px solid #000;
+            background-color: #fff; /* Fondo blanco para el recuadro */
+            color: #000;
+            font-size: 0.8rem;
+            text-align: center;
+            letter-spacing: 0.1rem;
+            padding: 3px;
+            font-family: 'Cormorant', serif;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #000;
+            font-family: 'Cormorant', serif;
+        }
+
+        button {
+            padding: 6px 12px;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 5px;
+            color: #000;
+            font-size: 0.7rem;
+            letter-spacing: 0.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 8px;
+            font-family: 'Cormorant', serif;
+        }
+
+        button:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .bottom-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .save-date {
+            font-size: 1rem;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .names {
+            font-family: 'Cormorant', serif;
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        .location {
+            font-size: 0.8rem;
+            text-align: right;
+            width: 100%;
+            margin-bottom: 10%;
+            padding-right: 10%;
+        }
+
+        /* Control del espacio debajo de la contraseña */
+        .save-date-container {
+            margin-top: 5vw; /* Espacio debajo del campo de la contraseña */
+            text-align: center;
+        }
+
+        /* Si deseas más separación entre el texto y el formulario, puedes usar un margen adicional aquí */
+        .save-date-container .save-date,
+        .save-date-container .names {
+            margin-top: 10px; /* Ajusta este valor para modificar el espacio entre los elementos */
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                width: 120px; /* Reducir el ancho del contenedor */
+            }
+    
+            .password-input {
+                font-size: 0.7rem; /* Ajustar el tamaño de fuente */
+                padding: 2px; /* Reducir el padding */
+            }
+    
+            button {
+                font-size: 0.6rem; /* Ajustar el tamaño de fuente del botón */
+                padding: 4px 8px; /* Reducir el padding del botón */
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Section -->
+        <div class="top-section">
+            <div class="left-section">
+                <div>03</div>
+                <div>14</div>
+                <div>25</div>
+            </div>
+            <div class="separator"></div>
+            <div class="form-section">
+                <div class="form-container">
+                    <form action="{{ url_for('login_user') }}" method="POST">
+                        <div class="password-container">
+                            <input
+                                type="password"
+                                id="contraseña"
+                                name="contraseña"
+                                class="password-input"
+                                placeholder="Password"
+                                required
+                            />
+                        </div>
+                        <button id="login-btn" type="submit">Login</button>
+                    </form>
+                </div>
+
+                <!-- Nueva sección Save the Date debajo del formulario -->
+                <div class="save-date-container">
+                    <div class="save-date">Save the Date</div>
+                    <div class="names">
+                        FRANCISCO &<br>
+                        IULIANA
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section (ubicación abajo a la derecha) -->
+        <div class="bottom-section">
+            <div class="location">Barcelona, Spain</div>
+        </div>
+    </div>
+</body>
+</html>

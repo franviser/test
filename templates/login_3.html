@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400&display=swap" rel="stylesheet">
+   
+    <title>Homepage sin Scroll</title>
+    <style>
+        /* Reset de márgenes y paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* La página debe ocupar toda la pantalla sin permitir scroll horizontal */
+        body, html {
+            height: 100%;
+            overflow-x: hidden; /* Bloquear el scroll horizontal */
+            overflow-y: hidden; /* Bloquear el scroll vertical inicialmente */
+            transition: overflow-y 1s ease; /* Transición para cambiar el overflow vertical */
+        }
+        
+    
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        .text {
+            position: absolute;
+            font-family: "Cormorant", serif;
+            font-weight: 500;
+            color: black;
+       
+        }
+        
+
+        .save {
+            font-size: 18vw; /* Ajusta para que ocupe toda la pantalla */
+            left: -5vw; /* Para que sobresalga por el borde izquierdo */
+            top: -3vw;
+            letter-spacing: -5rem;
+        }
+
+        .the {
+            font-size: 18vw;
+            right: 3vw; /* Para que sobresalga por el borde derecho */
+            top: 7vw;
+            letter-spacing: -5rem;
+        }
+
+        .date {
+            font-size: 18vw;
+            left: -2vw;
+            top: 14vw;
+            letter-spacing: -5rem;
+        }
+
+        /* Estilos para dispositivos móviles */
+        @media (max-width: 600px) {
+            .save {
+                letter-spacing: -1.5rem;
+            }
+    
+            .the {
+                letter-spacing: -1.5rem;
+            }
+    
+            .date {
+                letter-spacing: -1.5rem;
+            }
+          }
+
+        .number {
+            font-size: 3vw;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom: 20vw;
+            left: 24.5vw;
+            color: black;
+            z-index: 10;
+            font-family: 'Italiana', serif;
+            letter-spacing: 0.5rem;
+        }
+
+        .name {
+            font-size: 5vw;
+            position: absolute;
+            bottom: 5vw;
+            left: 5%;
+            font-family: 'Italiana', serif;
+            letter-spacing: -0.75rem;
+        }
+
+        .and {
+            font-size: 5vw;
+            position: absolute;
+            bottom: 5vw;
+            left: 85%;
+            font-family: 'Italiana', serif;
+            letter-spacing: -0.75rem;
+        }
+
+        .iuliana {
+            font-size: 5vw;
+            position: absolute;
+            bottom: 0%;
+            left: 35vw;
+            margin-top: 10vw;
+            font-family: 'Italiana', serif;
+            letter-spacing: -0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                bottom: 10vw;
+                letter-spacing: -0.2rem;
+            }
+    
+            .and {
+                left: 45%;
+                letter-spacing: -0.2rem;
+            }
+    
+            .iuliana {
+                letter-spacing: -0.2rem;
+                left: 70vw;
+            }
+          }
+
+       
+        /* Consultas de medios para móviles */
+        @media (max-width: 768px) {
+            .save, .the, .date, .number, .name, .and, .iuliana {
+                font-size: 27vw; /* Aumentar tamaño de fuente en pantallas pequeñas */
+            }
+
+            /* Posicionamiento ajustado para móviles */
+            .save {
+                top: -5vw; /* Ajusta la posición de 'SAVE' */
+            }
+
+            .the {
+                top: 25vw; /* Ajusta la posición de 'THE' */
+            }
+
+            .date {
+                top: 60vw; /* Ajusta la posición de 'DATE' */
+            }
+
+            .number {
+                font-size: 6vw;
+                top: 87vw;
+            }
+
+            .name, .and {
+                font-size: 12vw;
+                bottom: 20%;
+            }
+            
+            .iuliana {
+              font-size: 12vw;
+              bottom: 10%;
+          }
+
+           
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text save">SAVE</div>
+        <div class="text the">THE</div>
+        <div class="text date">DATE</div>
+        <div class="text number">10.10.2025</div>
+        <div class="text name">Fran</div>
+        <div class="text and">&</div>
+        <div class="text iuliana">Iuliana.</div>
+    </div>
+
+    <style>
+        /* Estilos globales para centrar el contenedor */
+        body {
+          background-color: #FFFDF0;
+          display: flex;
+          justify-content: center; /* Centra horizontalmente */
+          align-items: center; /* Centra verticalmente */
+          height: 100vh; /* Asegura que el body ocupe toda la altura de la pantalla */
+          margin: 0; /* Elimina márgenes por defecto */
+        }
+        
+        .login-box {
+            border: 2px solid black;
+            padding: 20px;
+            background-color: white;
+            width: 90%; 
+            max-width: 400px;
+            box-sizing: border-box;
+            margin: auto; /* Esto centra horizontalmente */
+            position: absolute; /* Añadido para asegurar centrado */
+            left: 50%; /* Mueve el elemento al centro horizontalmente */
+            transform: translateX(-50%); /* Corrige el desplazamiento */
+          }
+          
+        
+        /* Estilos del formulario */
+        .form-container {
+          color: #555555;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px; /* Espaciado entre los elementos del formulario */
+        }
+        
+        /* Estilo del campo de contraseña */
+        .password-input {
+          color: #555555;
+          width: 100%; /* Ocupa todo el ancho disponible */
+          height: 30px;
+          background: var(--white);
+          color: black;
+          font-size: 0.7rem;
+          text-align: center;
+          letter-spacing: 0.1rem;
+          font-family: 'Cormorant', serif;
+          border: 0.1vw solid var(--darker-blue);
+          box-sizing: border-box;
+        }
+        
+        .password-input:focus {
+          color: #555555;
+          outline: none;
+        }
+        
+        /* Estilo del botón */
+        button {
+          color: #555555;
+          padding: 10px 14px; /* Aumentado el padding vertical */
+          background-color: var(--white);
+          border: 0.1vw solid var(--darker-blue);
+          color: var(--darker-blue);
+          font-size: 0.7rem;
+          font-family: 'Cormorant', serif;
+          letter-spacing: 0.1rem;
+          cursor: pointer;
+          width: 100%; /* Ocupa todo el ancho del contenedor */
+          display: block;
+          box-sizing: border-box;
+        }
+        
+        /* Estilos para dispositivos móviles */
+        @media (max-width: 600px) {
+          .login-box {
+            width: 90%; /* Ajustado para mejor responsividad */
+            padding: 15px; /* Ajustado el espaciado interno */
+          }
+        
+          .password-input {
+            height: 25px; /* Ajustado para mejor usabilidad en móviles */
+            font-size: 0.7rem; /* Mantenido el tamaño de fuente para legibilidad */
+          }
+        
+          button {
+            padding: 8px 10px; /* Ajustado el padding del botón */
+            font-size: 0.7rem; /* Mantenido el tamaño de fuente para legibilidad */
+          }
+        }
+      </style>
+      
+      
+      <div class="login-box">
+        <div class="form-container">
+          <form action="{{ url_for('login_user') }}" method="POST">
+            <input
+              type="password"
+              id="contraseña"
+              name="contraseña"
+              class="password-input"
+              placeholder="Password"
+              required
+            />
+            <button id="login-btn" type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+
+
+
+      <div class="floating-image-top">
+        <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav4.jpg" alt="Imagen flotante superior">
+    </div>
+    
+    <div class="floating-image-bottom">
+        <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav15.jpg" alt="Imagen flotante inferior">
+    </div>
+    
+    <style>
+        .floating-image-top {
+            position: fixed;
+            top: 0;
+            right: 30%;
+            z-index: -1;
+        }
+        
+        .floating-image-top img {
+            width: 250px;
+            height: auto;
+            display: block;
+        }
+    
+        .floating-image-bottom {
+            position: fixed;
+            bottom: 0%;
+            right: 30%;
+            z-index: -1;
+        }
+        
+        .floating-image-bottom img {
+            width: 200px;
+            height: auto;
+            display: block;
+        }
+    
+        @media (max-width: 768px) {
+            .floating-image-top img {
+                width: 30%;
+                margin: 0% 0% 0% 70%;
+            }
+            
+            .floating-image-bottom img {
+                width: 30%;
+                bottom: 10px;
+                margin: 0% 0% 0% 40%;
+            }
+        }
+
+       
+    </style>
+     
+</body>
+</html>

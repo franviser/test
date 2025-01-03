@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día de la Boda</title>
+    <style>
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 1.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007BFF;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            margin-top: 2rem;
+        }
+
+        label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #progressContainer {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        progress {
+            width: 100%;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('fotografias') }}">Subir Fotografía</a>
+            <a href="{{ url_for('galerias') }}">Galerías</a>
+            <a href="{{ url_for('diaboda') }}">Baúl de los Recuerdos</a> <!-- Nuevo enlace añadido -->
+            <a href="{{ url_for('muro') }}">muro</a> <!-- Nuevo enlace añadido -->
+        </nav>
+    </header>
+
+    <div class="content">
+        
+        <h2>Cabina de Confesiones</h2>
+        <p>¡Queremos capturar todos los momentos divertidos y emotivos del día! Por favor, deja un mensaje especial para la pareja y sube tu video. Al final, crearemos un video único con todas las confesiones para ellos.</p>
+        
+        <form method="POST" action="{{ url_for('cabina_confesiones') }}" enctype="multipart/form-data" id="uploadForm">
+            <label for="nombre">Tu nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="video">Sube tu video (máximo 50 MB):</label>
+            <input type="file" id="video" name="video" accept="video/*" required>
+            
+            <button type="submit">Enviar</button>
+        </form>
+        
+        <div id="progressContainer" style="display: none;">
+            <label for="progressBar">Subiendo video...</label>
+            <progress id="progressBar" value="0" max="100"></progress>
+            <p id="progressText">0%</p>
+        </div>
+        
+        <script>
+            document.getElementById('uploadForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const form = event.target;
+                const formData = new FormData(form);
+                const progressBar = document.getElementById('progressBar');
+                const progressText = document.getElementById('progressText');
+                const progressContainer = document.getElementById('progressContainer');
+                
+                progressContainer.style.display = 'block';
+        
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', form.action, true);
+        
+                xhr.upload.addEventListener('progress', function(event) {
+                    if (event.lengthComputable) {
+                        const percentComplete = Math.round((event.loaded / event.total) * 100);
+                        progressBar.value = percentComplete;
+                        progressText.textContent = percentComplete + '%';
+                    }
+                });
+        
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        alert('¡Video subido con éxito!');
+                        progressBar.value = 0;
+                        progressText.textContent = '0%';
+                        progressContainer.style.display = 'none';
+                        form.reset();
+                    } else {
+                        alert('Hubo un error al subir el video. Por favor, intenta nuevamente.');
+                    }
+                };
+        
+                xhr.send(formData);
+            });
+        </script>
+    </div>
+</body>
+</html>

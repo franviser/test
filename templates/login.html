@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --cream: #f5f5dc;
+        --dark-cream: #ecc164;
+        --white: hsl(0, 0%, 100%);
+        --darker-blue: hsl(234, 17%, 12%);
+        --grayish-blue: hsl(237, 18%, 59%);
+      }
+
+      body {
+        font-family: 'Red Hat Text', sans-serif;
+        height: 100vh;
+        background: var(--white);
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        background-color: #FFFDF0;
+      }
+
+      .container {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .countdown-container h1 {
+        font-family: 'Cormorant', serif;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 2rem;
+      }
+
+      .countdown {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      .count {
+        text-align: center;
+        margin: 0 10px;
+        
+      }
+
+      .title {
+        background-color: var(--dark-cream);
+        border-radius: 0.3rem;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        color: var(--darker-blue);
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .count p {
+        font-size: 0.8rem;
+        color: var(--grayish-blue);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+    </style>
+
+    <title>Countdown Timer</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="countdown-container" style="color: #ecc164;">
+        <h1 style="font-size: 2.5rem; font-family: 'Cormorant', serif; text-align: center; margin-bottom: 20px;">
+          Welcome to our wedding,
+        </h1>
+        
+        <div class="countdown">
+          <div class="count">
+            <div class="title" id="days" style="font-weight: 300;">00</div>
+            <p style="font-family: 'Cormorant', serif; font-size: 0.8rem; color: var(--grayish-blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 900;">Days</p>
+
+          </div>
+          <div class="count">
+            <div class="title" id="hours" style="font-weight: 300;">00</div>
+            <p style="font-family: 'Cormorant', serif; font-size: 0.8rem; color: var(--grayish-blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 900;">Hours</p>
+          </div>
+          <div class="count">
+            <div class="title" id="minutes" style="font-weight: 300;">00</div>
+            <p style="font-family: 'Cormorant', serif; font-size: 0.8rem; color: var(--grayish-blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 900;">Minutes</p>
+          </div>
+          <div class="count">
+            <div class="title" id="seconds" style="font-weight: 300;">00</div>
+            <p style="font-family: 'Cormorant', serif; font-size: 0.8rem; color: var(--grayish-blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 900;">Seconds</p>
+
+          </div>
+        </div>
+      </div>
+
+
+
+<style>
+  
+  .form-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px; /* Espaciado entre el input y el botón */
+  }
+  
+  .password-input {
+    width: 100%; /* Conserva el ancho completo */
+    height: 30px; /* Mantiene la altura original */
+    background: var(--white);
+    color: black;
+    font-size: 0.7rem;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0; /* Evita conflictos con otros márgenes */
+    font-family: 'Cormorant', serif;
+    border: 0.1vw solid var(--darker-blue);
+    box-sizing: border-box;
+    margin-bottom: 15px;
+  }
+  
+  .password-input:focus {
+    outline: none;
+  }
+  
+  button {
+    padding: 6px 14px; /* Mantén el padding original */
+    background-color: var(--white);
+    border: 0.1vw solid var(--darker-blue);
+    color: var(--darker-blue);
+    font-size: 0.7rem;
+    font-family: 'Cormorant', serif;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    display: block;
+    box-sizing: border-box; /* Asegura que el padding y el border no afecten el tamaño */
+  }
+  
+  
+  
+  
+</style>
+
+<div class="form-container">
+  <form action="{{ url_for('login_user') }}" method="POST">
+    <input
+      type="password"
+      id="contraseña"
+      name="contraseña"
+      class="password-input"
+      placeholder="Password"
+      required
+    />
+    <button id="login-btn" type="submit">Login</button>
+  </form>
+</div>
+
+
+      <div class="floating-image">
+        <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav4.jpg" alt="Imagen flotante">
+    </div>
+    
+
+  
+
+<style> 
+        .floating-image {
+        position: fixed;
+        top: 0; 
+        z-index: -10; 
+        margin: 0%0%0%-5%; 
+        z-index: -1;
+    }
+    
+    .floating-image img {
+        width: 20%; 
+        height: auto; 
+        display: block;
+        z-index: -1;
+    } 
+
+    @media (max-width: 768px) {
+      .floating-image img {
+        width: 30%; 
+    }
+  </style> 
+
+  <style>
+ 
+    .image-container {
+        position: fixed;
+        bottom: -5%; /* Adjust this value to control how far outside the screen */
+        right: -60vw; /* Adjust this value to control how far outside the screen */
+        transform: translate(0, 0);
+        z-index: -1;
+    }
+
+    .image-container img {
+        width: 20%; /* Scale the image to 30% of its original size */
+    }
+
+    @media (max-width: 768px) {
+      .image-container img {
+        width: 20%;
+    }
+</style>
+
+<div class="image-container">
+    <img src="https://franciscoyiuliana.com/wp-content/uploads/2024/12/fav15.jpg" alt="Imagen de muestra">
+</div>
+
+      <script>
+        const targetDate = new Date('2026-01-01T00:00:00').getTime();
+
+        function updateCountdown() {
+          const now = new Date().getTime();
+          const timeLeft = targetDate - now;
+
+          const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+          document.getElementById('days').textContent = String(days).padStart(2, '0');
+          document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+          document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+          document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+      </script>
+    </div>
+  </body>
+</html>

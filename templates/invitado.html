@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Invitado</title>
+    <style>
+        :root {
+            --soft-gold: #BF9D5E;
+            --darker-blue: white;
+        }
+    
+        body {
+            font-family: 'Cormorant', serif; /* Cambiar a Cormorant */
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* Fondo claro para un look más lujoso */
+        }
+
+    
+        form {
+            width: 50%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 60px;
+            border: 1px solid black; /* Borde negro fino */
+            border-radius: 10px;
+            background-color: white; /* Fondo blanco para el formulario */
+        }
+    
+        label {
+            display: block;
+            width: 50%;
+            margin: 10px 0 5px;
+            font-family: 'Italiana', serif; /* Cambiar a Italiano */
+        }
+    
+        input, textarea {
+            width: 50%;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid black; /* Borde negro fino */
+            border-radius: 5px;
+        }
+    
+        .hidden {
+            display: none;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        button {
+            padding: 10px 20px;
+            background-color: var(--soft-gold);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #ecc164;
+        }
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 1.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007BFF;
+        }
+
+        nav a.bold {
+            font-weight: bold;
+        }
+
+        .menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            background-color: #fff;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: #007BFF;
+        }
+
+        .menu a.bold {
+            font-weight: bold;
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .burger div {
+            height: 4px;
+            background-color: #333;
+            border-radius: 2px;
+        }
+
+        .burger.active + .menu {
+            display: flex;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: url('https://franciscoyiuliana.com/wp-content/uploads/2024/02/playa-9.jpg') center/cover no-repeat;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0.5rem 0;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            nav > a {
+                display: none;
+            }
+
+            .menu {
+                display: none;
+                flex-direction: column;
+            }
+
+            .burger.active + .menu {
+                display: flex;
+            }
+        }
+
+    
+
+    </style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger');
+            const menu = document.querySelector('.menu');
+
+            burger.addEventListener('click', () => {
+                burger.classList.toggle('active');
+                menu.classList.toggle('active');
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="menu">
+                <a href="/index">Home</a>
+                <a href="/location">Location</a>
+                <a href="/invitado">RSVP</a>
+                <a href="/playlist">Music</a>
+                <a href="/schedule">Schedule</a>
+                <a href="/gifts">Gifts</a>
+                <a href="/dresscode">Dress Code</a>
+                <a href="/menu">Menu</a>
+                <a href="/diaboda" class="bold">Wedding Day</a>
+            </div>
+            <a href="/index">Home</a>
+            <a href="/location">Location</a>
+            <a href="/invitado">RSVP</a>
+            <a href="/playlist">Music</a>
+            <a href="/schedule">Schedule</a>
+            <a href="/gifts">Gifts</a>
+            <a href="/dresscode">Dress Code</a>
+            <a href="/menu">Menu</a>
+            <a href="/diaboda" class="bold">Wedding Day</a>
+        </nav>
+    </header>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            {{ form.nombre() }}
+        </div>
+
+        <div class="form-group">
+            <label for="apellido">Apellido:</label>
+            {{ form.apellido() }}
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Número de Teléfono:</label>
+            {{ form.telefono() }}
+        </div>
+
+        <div class="form-group">
+            <label for="es_nino">¿Es niño?</label>
+            {{ form.es_nino() }}
+        </div>
+
+        <div class="form-group">
+            <label for="acompanante">¿Vendrás con un acompañante?</label>
+            <input type="checkbox" id="acompanante" name="acompanante" onclick="toggleAcompananteField()">
+        </div>
+
+        <div class="form-group hidden" id="nombre_acompanante_group">
+            <label for="nombre_acompanante">Nombre del Acompañante:</label>
+            {{ form.nombre_acompanante() }}
+            <label for="es_nino_acompanante">¿Es niño el acompañante?</label>
+            {{ form.es_nino_acompanante() }}
+        </div>
+
+        <div class="form-group">
+            <label for="intolerancia">Intolerancia Alimentaria:</label>
+            {{ form.intolerancia() }}
+        </div>
+
+        <div class="form-group">
+            <label for="comentarios">Comentarios:</label>
+            {{ form.comentarios() }}
+        </div>
+
+        <div class="form-group">
+            <label for="cancion">Recomendación de Canción:</label>
+            {{ form.cancion() }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit() }}
+        </div>
+    </form>
+
+   
+</body>
+</html>
